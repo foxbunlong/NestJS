@@ -98,3 +98,10 @@ nest g module prisma
 
 nest g service prisma --no-spec
  - Create service class for prisma
+
+# Validator
+yarn add class-validator class-transformer
+ - Need to apply global pipes
+
+yarn add argon2
+ - Hash library
