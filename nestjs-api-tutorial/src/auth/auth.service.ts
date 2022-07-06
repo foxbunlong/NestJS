@@ -58,7 +58,7 @@ export class AuthService {
     console.log('findUnique result:', user);
 
     const pwMatched = await argon.verify(user.hash, dto.password);
-    if (pwMatched) {
+    if (!pwMatched) {
       throw new ForbiddenException('Credentails incorrect');
     }
 
