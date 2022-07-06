@@ -85,7 +85,10 @@ npx prisma init
  - This will generate prisma directory and add .env file in root
 
 npx prisma migrate dev
- - Generate sql from schema
+ - Generate sql from schema called everytime has update in schema
+
+npx prisma migrate deploy
+ - Deploy current sql update scheme to db
 
 npx prisma generate
  - Generate model class
