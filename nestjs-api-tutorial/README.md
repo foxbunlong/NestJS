@@ -102,9 +102,19 @@ nest g module prisma
 nest g service prisma --no-spec
  - Create service class for prisma
 
+nest g controller user --no-spec
+ - Create controller class for user
+
+yarn add @nestjs/config
+ - Using configuration from .env
+
 # Validator
 yarn add class-validator class-transformer
  - Need to apply global pipes
 
 yarn add argon2
  - Hash library
+
+# Authentication
+yarn add @nestjs/passport passport @nestjs/jwt passport-jwt
+yarn add -D @types/passport-jwt
