@@ -1,9 +1,10 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
 
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
+
+import { PrismaService } from '../../../src/prisma/prisma.service';
 
 // This class clarify Authorization field in header request to validate token
 // 2nd params should be the same as defined in controller. Otherwise, error can be 'Unknown authentication strategy ...'

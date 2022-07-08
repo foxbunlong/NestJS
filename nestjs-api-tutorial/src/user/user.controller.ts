@@ -1,8 +1,8 @@
-import { GetUserDecorator } from 'src/auth/decorator';
-import { JwtGaurd } from 'src/auth/gaurd';
-
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
+
+import { GetUserDecorator } from '../../src/auth/decorator';
+import { JwtGaurd } from '../../src/auth/gaurd';
 
 @UseGuards(JwtGaurd) // Every request requires token
 @Controller('users')

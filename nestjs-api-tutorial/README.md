@@ -118,3 +118,9 @@ yarn add argon2
 # Authentication
 yarn add @nestjs/passport passport @nestjs/jwt passport-jwt
 yarn add -D @types/passport-jwt
+
+## Testing
+yarn add -D pactum
+ - E2E testing tool
+
+ - Add --watch --no-cache to "test:e2e" in package.json
