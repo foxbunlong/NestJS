@@ -124,3 +124,9 @@ yarn add -D pactum
  - E2E testing tool
 
  - Add --watch --no-cache to "test:e2e" in package.json
+
+## Different Environment setup
+yarn add -D dotenv-cli
+ - Allow to create new .env.test file to seperate config for testing
+ - Declare "dotenv -e .env.test -- " in package.json file
+ - Define a hook with "pre" + defined command
