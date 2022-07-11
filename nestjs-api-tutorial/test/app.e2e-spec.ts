@@ -1,5 +1,6 @@
 import * as pactum from 'pactum';
 import { AuthDto } from 'src/auth/dto';
+import { CreateBookmarkDto } from 'src/bookmark/dto';
 import { EditUserDto } from 'src/user/dto';
 
 import { INestApplication, ValidationPipe } from '@nestjs/common';
@@ -97,9 +98,61 @@ describe('AppController e2e', () => {
   });
 
   describe('Bookmarks', () => {
-    describe('Create bookmark', () => {});
-    describe('Get bookmarks', () => {});
-    describe('Get bookmark by id', () => {});
+    describe('Get empty bookmark', () => {
+      it('should get empty bookmark', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}', // S for Stores
+          })
+          .expectStatus(200)
+          .expectBody([]);
+      });
+    });
+    describe('Create bookmark', () => {
+      it('should create new bookmark', () => {
+        const dto: CreateBookmarkDto = {
+          title: 'First bookmark',
+          description: 'Description for bookmark',
+          link: 'https://google.com.vn',
+        };
+        return pactum
+          .spec()
+          .post('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}', // S for Stores
+          })
+          .withBody(dto)
+          .expectStatus(201)
+          .stores('bookmarkId', 'id');
+      });
+    });
+    describe('Get bookmarks', () => {
+      it('should get bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}', // S for Stores
+          })
+          .expectStatus(200)
+          .expectJsonLength(1); // At least 1 element
+      });
+    });
+    describe('Get bookmark by id', () => {
+      it('should get bookmark by id', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}', // S for Stores
+          })
+          .expectStatus(200)
+          .expectBodyContains('$S{bookmarkId}'); // At least has the value
+      });
+    });
     describe('Edit bookmark by id', () => {});
     describe('Delete bookmark by id', () => {});
   });
