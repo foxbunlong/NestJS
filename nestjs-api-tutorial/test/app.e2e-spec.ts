@@ -1,6 +1,6 @@
 import * as pactum from 'pactum';
 import { AuthDto } from 'src/auth/dto';
-import { CreateBookmarkDto } from 'src/bookmark/dto';
+import { CreateBookmarkDto, EditBookmarkDto } from 'src/bookmark/dto';
 import { EditUserDto } from 'src/user/dto';
 
 import { INestApplication, ValidationPipe } from '@nestjs/common';
@@ -153,7 +153,45 @@ describe('AppController e2e', () => {
           .expectBodyContains('$S{bookmarkId}'); // At least has the value
       });
     });
-    describe('Edit bookmark by id', () => {});
-    describe('Delete bookmark by id', () => {});
+    describe('Edit bookmark by id', () => {
+      it('should edit bookmark by id', () => {
+        const dto: EditBookmarkDto = {
+          title: 'Updated title',
+        };
+        return pactum
+          .spec()
+          .patch('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}', // S for Stores
+          })
+          .withBody(dto)
+          .expectStatus(200)
+          .expectBodyContains(dto.title); // At least has the value
+      });
+    });
+    describe('Delete bookmark by id', () => {
+      it('should delete bookmark by id', () => {
+        return pactum
+          .spec()
+          .delete('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}', // S for Stores
+          })
+          .expectStatus(204);
+      });
+
+      it('should get empty bookmarks again', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}', // S for Stores
+          })
+          .expectStatus(200)
+          .expectBody([]);
+      });
+    });
   });
 });
