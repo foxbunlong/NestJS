@@ -59,6 +59,9 @@ $ npm run test:cov
 ```
 
 ## My Learning
+
+# Nest CLI to create whole module with dtos, entities and required classes
+nest g resource [class name in lower case]
 # Nest CLI to create module
 nest g module [class name in lower case]
 
